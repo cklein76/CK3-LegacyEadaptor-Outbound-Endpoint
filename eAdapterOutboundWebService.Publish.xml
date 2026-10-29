@@ -1,0 +1,10 @@
+<publishData>
+  <publishTarget publishUrl="C:\inetpub\wwwroot\eAdapterOutbound\">
+    <file relUrl="bin/CargoWise.eHub.Common.dll" publishTime="10/21/2013 07:41:04" />
+    <file relUrl="bin/CargoWise.eHub.Adapter.dll" publishTime="10/21/2013 07:41:04" />
+    <file relUrl="eAdapterOutboundWebService.svc" publishTime="10/22/2013 08:49:31" />
+    <file relUrl="Web.config" publishTime="10/23/2013 08:17:33" />
+    <file relUrl="bin/CargoWise.eAdapterOutboundWebService.pdb" publishTime="10/23/2013 09:22:26" />
+    <file relUrl="bin/CargoWise.eAdapterOutboundWebService.dll" publishTime="10/23/2013 09:22:26" />
+  </publishTarget>
+</publishData>
