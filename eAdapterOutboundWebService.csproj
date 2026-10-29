@@ -84,7 +84,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="NLog.config" />
+    <Content Include="NLog.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
