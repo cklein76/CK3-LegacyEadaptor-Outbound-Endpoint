@@ -17,9 +17,25 @@ namespace CargoWise.eAdapterOutboundWebService
 		// Use tools\New-PasswordHash.ps1 to generate the value.
 		bool ValidatePassword(string userName, string hash)
 		{
-			if (string.IsNullOrEmpty(userName)) return false;
+			var log = NLog.LogManager.GetCurrentClassLogger();
+			if (string.IsNullOrEmpty(userName))
+			{
+				log.Warn("Login rejected: no user name supplied");
+				return false;
+			}
 			var expected = ConfigurationManager.AppSettings["PasswordHash:" + userName];
-			return expected != null && string.Equals(expected.Trim(), hash, StringComparison.OrdinalIgnoreCase);
+			if (expected == null)
+			{
+				log.Warn("Login rejected: no PasswordHash entry for user name [{0}] (length {1})", userName, userName.Length);
+				return false;
+			}
+			if (!string.Equals(expected.Trim(), hash, StringComparison.OrdinalIgnoreCase))
+			{
+				log.Warn("Login rejected: wrong password for user name [{0}] (length {1})", userName, userName.Length);
+				return false;
+			}
+			log.Info("Login accepted for user name [{0}]", userName);
+			return true;
 		}
 	}
 }
