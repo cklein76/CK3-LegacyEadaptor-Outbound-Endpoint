@@ -1,4 +1,6 @@
 ﻿using CargoWise.eHub.Common;
+using System;
+using System.Configuration;
 using System.IdentityModel.Selectors;
 using System.ServiceModel;
 
@@ -11,10 +13,13 @@ namespace CargoWise.eAdapterOutboundWebService
 			if (!ValidatePassword(userName, SHA512Encryptor.Encrypt(userName + password))) throw new FaultException("ClientID or Password invalid.");
 		}
 
+		// Expects an appSettings entry "PasswordHash:<userName>" holding SHA512Encryptor.Encrypt(userName + password).
+		// Use tools\New-PasswordHash.ps1 to generate the value.
 		bool ValidatePassword(string userName, string hash)
 		{
-#warning If you require user authentication, you can implement your own authentication here. You can remove this warning when done.
-			return true;
+			if (string.IsNullOrEmpty(userName)) return false;
+			var expected = ConfigurationManager.AppSettings["PasswordHash:" + userName];
+			return expected != null && string.Equals(expected.Trim(), hash, StringComparison.OrdinalIgnoreCase);
 		}
 	}
 }
